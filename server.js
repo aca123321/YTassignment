@@ -4,13 +4,14 @@ var express = require('express');
 const MongoClient = mongo.MongoClient;
 
 // TODO
-const url = 'mongodb://localhost:27017';
+const dbURL = 'mongodb://localhost:27017';
+const baseURL = "http://localhost";
 const dbName = 'test';
 const collectionName = 'videos';
 
 async function getResults(searchTerms, curPage=1, resPerPage=1) {
 
-    const client = await MongoClient.connect(url, {poolSize: 10, useUnifiedTopology: true, useNewUrlParser: true })
+    const client = await MongoClient.connect(dbURL, {poolSize: 10, useUnifiedTopology: true, useNewUrlParser: true })
         .catch(err => { console.log(err); });
     if(client == null) {
         return ;
@@ -64,5 +65,5 @@ app.get('/', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log("Server running on: http://localhost:" + port);
+    console.log("Server running on: " + baseURL + ":" + port);
 });
